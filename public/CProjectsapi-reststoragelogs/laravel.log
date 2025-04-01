@@ -1,0 +1,116 @@
+[2025-04-01 10:32:40] local.ERROR: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "telescope_entries" does not exist
+LINE 1: insert into "telescope_entries" ("batch_id", "content", "cre...
+                    ^ (Connection: pgsql, SQL: insert into "telescope_entries" ("batch_id", "content", "created_at", "family_hash", "type", "uuid") values (9e921b09-297d-43ac-a51d-3f0a37bd1df5, {"ip_address":"172.18.0.1","uri":"\/api\/upload-fotografias","method":"POST","controller_action":"App\\Http\\Controllers\\FotoPessoaController@upload","middleware":["api"],"headers":{"content-length":"41152","content-type":"multipart\/form-data; boundary=--------------------------886129175147509066808642","connection":"keep-alive","accept-encoding":"gzip, deflate, br","host":"localhost:8000","postman-token":"e652547a-fba7-4354-ab95-e44bf9de3ed4","cache-control":"no-cache","accept":"*\/*","user-agent":"PostmanRuntime\/7.39.1"},"payload":{"foto":{"name":"tone-1.png","size":"40.945KB"}},"session":[],"response_headers":{"cache-control":"no-cache, private","date":"Tue, 01 Apr 2025 10:32:39 GMT","content-type":"application\/json","access-control-allow-origin":"*"},"response_status":500,"response":{"message":"Erro ao processar a imagem.","error":"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"foto_pessoa\" does not exist\nLINE 1: insert into \"foto_pessoa\" (\"fp_bucket\", \"fp_hash\", \"updated_...\n                    ^ (Connection: pgsql, SQL: insert into \"foto_pessoa\" (\"fp_bucket\", \"fp_hash\", \"updated_at\", \"created_at\") values (?, 67ebc0c52a496.png, 2025-04-01 10:32:38, 2025-04-01 10:32:38) returning \"id\")"},"duration":6263,"memory":38,"hostname":"b5404f3e96a6"}, 2025-04-01 10:32:39, ?, request, 9e921b08-ba7b-4df1-abf1-439f138faaf0)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42P01): SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"telescope_entries\" does not exist
+LINE 1: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"cre...
+                    ^ (Connection: pgsql, SQL: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"created_at\", \"family_hash\", \"type\", \"uuid\") values (9e921b09-297d-43ac-a51d-3f0a37bd1df5, {\"ip_address\":\"172.18.0.1\",\"uri\":\"\\/api\\/upload-fotografias\",\"method\":\"POST\",\"controller_action\":\"App\\\\Http\\\\Controllers\\\\FotoPessoaController@upload\",\"middleware\":[\"api\"],\"headers\":{\"content-length\":\"41152\",\"content-type\":\"multipart\\/form-data; boundary=--------------------------886129175147509066808642\",\"connection\":\"keep-alive\",\"accept-encoding\":\"gzip, deflate, br\",\"host\":\"localhost:8000\",\"postman-token\":\"e652547a-fba7-4354-ab95-e44bf9de3ed4\",\"cache-control\":\"no-cache\",\"accept\":\"*\\/*\",\"user-agent\":\"PostmanRuntime\\/7.39.1\"},\"payload\":{\"foto\":{\"name\":\"tone-1.png\",\"size\":\"40.945KB\"}},\"session\":[],\"response_headers\":{\"cache-control\":\"no-cache, private\",\"date\":\"Tue, 01 Apr 2025 10:32:39 GMT\",\"content-type\":\"application\\/json\",\"access-control-allow-origin\":\"*\"},\"response_status\":500,\"response\":{\"message\":\"Erro ao processar a imagem.\",\"error\":\"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \\\"foto_pessoa\\\" does not exist\\nLINE 1: insert into \\\"foto_pessoa\\\" (\\\"fp_bucket\\\", \\\"fp_hash\\\", \\\"updated_...\\n                    ^ (Connection: pgsql, SQL: insert into \\\"foto_pessoa\\\" (\\\"fp_bucket\\\", \\\"fp_hash\\\", \\\"updated_at\\\", \\\"created_at\\\") values (?, 67ebc0c52a496.png, 2025-04-01 10:32:38, 2025-04-01 10:32:38) returning \\\"id\\\")\"},\"duration\":6263,\"memory\":38,\"hostname\":\"b5404f3e96a6\"}, 2025-04-01 10:32:39, ?, request, 9e921b08-ba7b-4df1-abf1-439f138faaf0)) at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:823)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(777): Illuminate\\Database\\Connection->runQueryCallback('insert into \"te...', Array, Object(Closure))
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(558): Illuminate\\Database\\Connection->run('insert into \"te...', Array, Object(Closure))
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(522): Illuminate\\Database\\Connection->statement('insert into \"te...', Array)
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3718): Illuminate\\Database\\Connection->insert('insert into \"te...', Array)
+#4 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(145): Illuminate\\Database\\Query\\Builder->insert(Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(261): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->Laravel\\Telescope\\Storage\\{closure}(Object(Illuminate\\Support\\Collection), 0)
+#6 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(144): Illuminate\\Support\\Collection->each(Object(Closure))
+#7 /var/www/html/vendor/laravel/telescope/src/Telescope.php(661): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->store(Object(Illuminate\\Support\\Collection))
+#8 [internal function]: Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#9 /var/www/html/vendor/laravel/telescope/src/Telescope.php(286): call_user_func(Object(Closure))
+#10 /var/www/html/vendor/laravel/telescope/src/Telescope.php(653): Laravel\\Telescope\\Telescope::withoutRecording(Object(Closure))
+#11 /var/www/html/vendor/laravel/telescope/src/ListensForStorageOpportunities.php(65): Laravel\\Telescope\\Telescope::store(Object(Laravel\\Telescope\\Storage\\DatabaseEntriesRepository))
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Container.php(754): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1452): Illuminate\\Container\\Container->call(Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(218): Illuminate\\Foundation\\Application->terminate()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1222): Illuminate\\Foundation\\Http\\Kernel->terminate(Object(Illuminate\\Http\\Request), Object(Illuminate\\Http\\JsonResponse))
+#20 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#21 {main}
+
+[previous exception] [object] (PDOException(code: 42P01): SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"telescope_entries\" does not exist
+LINE 1: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"cre...
+                    ^ at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:569)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(569): PDOStatement->execute()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(810): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('insert into \"te...', Array)
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(777): Illuminate\\Database\\Connection->runQueryCallback('insert into \"te...', Array, Object(Closure))
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(558): Illuminate\\Database\\Connection->run('insert into \"te...', Array, Object(Closure))
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(522): Illuminate\\Database\\Connection->statement('insert into \"te...', Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3718): Illuminate\\Database\\Connection->insert('insert into \"te...', Array)
+#6 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(145): Illuminate\\Database\\Query\\Builder->insert(Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(261): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->Laravel\\Telescope\\Storage\\{closure}(Object(Illuminate\\Support\\Collection), 0)
+#8 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(144): Illuminate\\Support\\Collection->each(Object(Closure))
+#9 /var/www/html/vendor/laravel/telescope/src/Telescope.php(661): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->store(Object(Illuminate\\Support\\Collection))
+#10 [internal function]: Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#11 /var/www/html/vendor/laravel/telescope/src/Telescope.php(286): call_user_func(Object(Closure))
+#12 /var/www/html/vendor/laravel/telescope/src/Telescope.php(653): Laravel\\Telescope\\Telescope::withoutRecording(Object(Closure))
+#13 /var/www/html/vendor/laravel/telescope/src/ListensForStorageOpportunities.php(65): Laravel\\Telescope\\Telescope::store(Object(Laravel\\Telescope\\Storage\\DatabaseEntriesRepository))
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Container.php(754): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1452): Illuminate\\Container\\Container->call(Object(Closure))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(218): Illuminate\\Foundation\\Application->terminate()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1222): Illuminate\\Foundation\\Http\\Kernel->terminate(Object(Illuminate\\Http\\Request), Object(Illuminate\\Http\\JsonResponse))
+#22 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#23 {main}
+"} 
+[2025-04-01 10:33:43] local.ERROR: SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation "telescope_entries" does not exist
+LINE 1: insert into "telescope_entries" ("batch_id", "content", "cre...
+                    ^ (Connection: pgsql, SQL: insert into "telescope_entries" ("batch_id", "content", "created_at", "family_hash", "type", "uuid") values (9e921b6a-0908-4c50-95da-572d6e450117, {"ip_address":"172.18.0.1","uri":"\/api\/upload-fotografias","method":"POST","controller_action":"App\\Http\\Controllers\\FotoPessoaController@upload","middleware":["api"],"headers":{"content-length":"2240","content-type":"multipart\/form-data; boundary=--------------------------472940319027895999030483","connection":"keep-alive","accept-encoding":"gzip, deflate, br","host":"localhost:8000","postman-token":"4a1b3579-283b-4e4a-859c-be8d1ba598e5","cache-control":"no-cache","accept":"*\/*","user-agent":"PostmanRuntime\/7.39.1"},"payload":{"foto":{"name":"Eliana Ribeiro - Voc\u00ea e Eu.txt","size":"2.011KB"}},"session":[],"response_headers":{"cache-control":"no-cache, private","date":"Tue, 01 Apr 2025 10:33:42 GMT","content-type":"application\/json","access-control-allow-origin":"*"},"response_status":500,"response":{"message":"Erro ao processar a imagem.","error":"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"foto_pessoa\" does not exist\nLINE 1: insert into \"foto_pessoa\" (\"fp_bucket\", \"fp_hash\", \"updated_...\n                    ^ (Connection: pgsql, SQL: insert into \"foto_pessoa\" (\"fp_bucket\", \"fp_hash\", \"updated_at\", \"created_at\") values (?, 67ebc104b6c87.txt, 2025-04-01 10:33:42, 2025-04-01 10:33:42) returning \"id\")"},"duration":6415,"memory":38,"hostname":"b5404f3e96a6"}, 2025-04-01 10:33:43, ?, request, 9e921b69-a664-4fc8-bbbf-c253cbf25a99)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42P01): SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"telescope_entries\" does not exist
+LINE 1: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"cre...
+                    ^ (Connection: pgsql, SQL: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"created_at\", \"family_hash\", \"type\", \"uuid\") values (9e921b6a-0908-4c50-95da-572d6e450117, {\"ip_address\":\"172.18.0.1\",\"uri\":\"\\/api\\/upload-fotografias\",\"method\":\"POST\",\"controller_action\":\"App\\\\Http\\\\Controllers\\\\FotoPessoaController@upload\",\"middleware\":[\"api\"],\"headers\":{\"content-length\":\"2240\",\"content-type\":\"multipart\\/form-data; boundary=--------------------------472940319027895999030483\",\"connection\":\"keep-alive\",\"accept-encoding\":\"gzip, deflate, br\",\"host\":\"localhost:8000\",\"postman-token\":\"4a1b3579-283b-4e4a-859c-be8d1ba598e5\",\"cache-control\":\"no-cache\",\"accept\":\"*\\/*\",\"user-agent\":\"PostmanRuntime\\/7.39.1\"},\"payload\":{\"foto\":{\"name\":\"Eliana Ribeiro - Voc\\u00ea e Eu.txt\",\"size\":\"2.011KB\"}},\"session\":[],\"response_headers\":{\"cache-control\":\"no-cache, private\",\"date\":\"Tue, 01 Apr 2025 10:33:42 GMT\",\"content-type\":\"application\\/json\",\"access-control-allow-origin\":\"*\"},\"response_status\":500,\"response\":{\"message\":\"Erro ao processar a imagem.\",\"error\":\"SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \\\"foto_pessoa\\\" does not exist\\nLINE 1: insert into \\\"foto_pessoa\\\" (\\\"fp_bucket\\\", \\\"fp_hash\\\", \\\"updated_...\\n                    ^ (Connection: pgsql, SQL: insert into \\\"foto_pessoa\\\" (\\\"fp_bucket\\\", \\\"fp_hash\\\", \\\"updated_at\\\", \\\"created_at\\\") values (?, 67ebc104b6c87.txt, 2025-04-01 10:33:42, 2025-04-01 10:33:42) returning \\\"id\\\")\"},\"duration\":6415,\"memory\":38,\"hostname\":\"b5404f3e96a6\"}, 2025-04-01 10:33:43, ?, request, 9e921b69-a664-4fc8-bbbf-c253cbf25a99)) at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:823)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(777): Illuminate\\Database\\Connection->runQueryCallback('insert into \"te...', Array, Object(Closure))
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(558): Illuminate\\Database\\Connection->run('insert into \"te...', Array, Object(Closure))
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(522): Illuminate\\Database\\Connection->statement('insert into \"te...', Array)
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3718): Illuminate\\Database\\Connection->insert('insert into \"te...', Array)
+#4 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(145): Illuminate\\Database\\Query\\Builder->insert(Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(261): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->Laravel\\Telescope\\Storage\\{closure}(Object(Illuminate\\Support\\Collection), 0)
+#6 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(144): Illuminate\\Support\\Collection->each(Object(Closure))
+#7 /var/www/html/vendor/laravel/telescope/src/Telescope.php(661): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->store(Object(Illuminate\\Support\\Collection))
+#8 [internal function]: Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#9 /var/www/html/vendor/laravel/telescope/src/Telescope.php(286): call_user_func(Object(Closure))
+#10 /var/www/html/vendor/laravel/telescope/src/Telescope.php(653): Laravel\\Telescope\\Telescope::withoutRecording(Object(Closure))
+#11 /var/www/html/vendor/laravel/telescope/src/ListensForStorageOpportunities.php(65): Laravel\\Telescope\\Telescope::store(Object(Laravel\\Telescope\\Storage\\DatabaseEntriesRepository))
+#12 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#13 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Container.php(754): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1452): Illuminate\\Container\\Container->call(Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(218): Illuminate\\Foundation\\Application->terminate()
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1222): Illuminate\\Foundation\\Http\\Kernel->terminate(Object(Illuminate\\Http\\Request), Object(Illuminate\\Http\\JsonResponse))
+#20 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#21 {main}
+
+[previous exception] [object] (PDOException(code: 42P01): SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation \"telescope_entries\" does not exist
+LINE 1: insert into \"telescope_entries\" (\"batch_id\", \"content\", \"cre...
+                    ^ at /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:569)
+[stacktrace]
+#0 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(569): PDOStatement->execute()
+#1 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(810): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('insert into \"te...', Array)
+#2 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(777): Illuminate\\Database\\Connection->runQueryCallback('insert into \"te...', Array, Object(Closure))
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(558): Illuminate\\Database\\Connection->run('insert into \"te...', Array, Object(Closure))
+#4 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Connection.php(522): Illuminate\\Database\\Connection->statement('insert into \"te...', Array)
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3718): Illuminate\\Database\\Connection->insert('insert into \"te...', Array)
+#6 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(145): Illuminate\\Database\\Query\\Builder->insert(Array)
+#7 /var/www/html/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(261): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->Laravel\\Telescope\\Storage\\{closure}(Object(Illuminate\\Support\\Collection), 0)
+#8 /var/www/html/vendor/laravel/telescope/src/Storage/DatabaseEntriesRepository.php(144): Illuminate\\Support\\Collection->each(Object(Closure))
+#9 /var/www/html/vendor/laravel/telescope/src/Telescope.php(661): Laravel\\Telescope\\Storage\\DatabaseEntriesRepository->store(Object(Illuminate\\Support\\Collection))
+#10 [internal function]: Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#11 /var/www/html/vendor/laravel/telescope/src/Telescope.php(286): call_user_func(Object(Closure))
+#12 /var/www/html/vendor/laravel/telescope/src/Telescope.php(653): Laravel\\Telescope\\Telescope::withoutRecording(Object(Closure))
+#13 /var/www/html/vendor/laravel/telescope/src/ListensForStorageOpportunities.php(65): Laravel\\Telescope\\Telescope::store(Object(Laravel\\Telescope\\Storage\\DatabaseEntriesRepository))
+#14 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Laravel\\Telescope\\Telescope::Laravel\\Telescope\\{closure}()
+#15 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#16 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#17 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Object(Closure), Object(Closure))
+#18 /var/www/html/vendor/laravel/framework/src/Illuminate/Container/Container.php(754): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Object(Closure), Array, NULL)
+#19 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1452): Illuminate\\Container\\Container->call(Object(Closure))
+#20 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(218): Illuminate\\Foundation\\Application->terminate()
+#21 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1222): Illuminate\\Foundation\\Http\\Kernel->terminate(Object(Illuminate\\Http\\Request), Object(Illuminate\\Http\\JsonResponse))
+#22 /var/www/html/public/index.php(20): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#23 {main}
+"} 
