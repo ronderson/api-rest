@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FotoPessoaController;
 use App\Http\Controllers\LotacaoController;
+use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ServidorEfetivoController;
 use App\Http\Controllers\ServidorTemporarioController;
 use App\Http\Controllers\UnidadeController;
@@ -14,9 +16,27 @@ Route::get('/', function () {
     ]);
 });
 
-Route::apiResource('unidades', UnidadeController::class);
-Route::resource('servidores-efetivos', ServidorEfetivoController::class);
-Route::post('upload-fotografias', [FotoPessoaController::class, 'upload']);
+/**
+ * Auth
+ */
+Route::post('/auth', [AuthController::class, 'auth']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+
+
+
+Route::middleware(['auth:sanctum', 'token.expiration'])->group(function () {
+    // CRUD de Unidade
+    Route::apiResource('/unidades', UnidadeController::class);
+    // CRUD de Servidor Efetivo
+    Route::apiResource('/servidores-efetivos', ServidorEfetivoController::class)->parameters(['servidores-efetivos' => 'servidor']);
+    // CRUD de Servidor Temporário
+    Route::resource('/servidores-temporarios', ServidorTemporarioController::class)->parameters(['servidores-temporarios' => 'servidor']);
+
+    Route::get('/pessoas/{id}/foto', [PessoaController::class, 'fotoTemporaria']);
+});
+
+//Route::post('upload-fotografias', [FotoPessoaController::class, 'upload']);
 
 
 // Route::middleware('auth:sanctum')->group(function () {

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class UnidadeRequest extends FormRequest
 {
@@ -23,10 +24,55 @@ class UnidadeRequest extends FormRequest
      */
     public function rules(): array
     {
-
+        $unidadeId = $this->unidade->unid_id ?? null;
         return [
-            'unid_nome' => 'required|string|max:200',
-            'unid_sigla' => 'required|string|max:20',
+            'unid_nome' => [
+                'bail',
+                'required',
+                'string',
+                'min:3,max:200',
+                Rule::unique('unidade', 'unid_nome')->ignore($unidadeId, 'unid_id')
+            ],
+            'unid_sigla' => [
+                'bail',
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('unidade', 'unid_sigla')->ignore($unidadeId, 'unid_id')
+            ],
+            'end_tipo_logradouro' => [
+                'required',
+                'string',
+                'max:50'
+            ],
+            'end_logradouro' => [
+                'required',
+                'string',
+                'max:200'
+            ],
+            'end_numero' => [
+                'required',
+                'string',
+                'max:20'
+            ],
+            'end_bairro' => [
+                'required',
+                'string',
+                'max:100'
+            ],
+            'cid_id' => [
+                'required',
+                'integer',
+                'exists:cidade,cid_id'
+            ],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'unid_nome' => 'Nome da unidade',
+            'unid_sigla' => 'Sigla da unidade',
         ];
     }
 
@@ -34,7 +80,7 @@ class UnidadeRequest extends FormRequest
     {
         throw new HttpResponseException(
             response()->json([
-                'message' => 'Erro de validação',
+                'status' => false,
                 'errors'  => $validator->errors(),
             ], 422)
         );

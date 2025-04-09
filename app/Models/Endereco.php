@@ -3,19 +3,39 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Endereco extends Model
 {
-    protected $table = 'lotacao';
-    protected $primaryKey = 'lot_id';
-    protected $fillable = ['pes_id', 'unid_id', 'lot_data_lotacao', 'lot_data_remocao', 'lot_portaria'];
-    
-    public function pessoa()
+    protected $table = 'endereco';
+    protected $primaryKey = 'end_id';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'end_tipo_logradouro',
+        'end_logradouro',
+        'end_numero',
+        'end_bairro',
+        'cid_id',
+    ];
+
+    public function cidade(): BelongsTo
     {
-        return $this->belongsTo(Pessoa::class, 'pes_id');
+        return $this->belongsTo(Cidade::class, 'cid_id', 'cid_id');
     }
-    public function unidade()
+
+    public function unidades()
     {
-        return $this->belongsTo(Unidade::class, 'unid_id');
+        return $this->belongsToMany(Unidade::class, 'unidade_endereco', 'end_id', 'unid_id');
+    }
+
+    public function pessoas()
+    {
+        return $this->belongsToMany(
+            Pessoa::class,
+            'pessoa_endereco',
+            'end_id',
+            'pes_id'
+        );
     }
 }
