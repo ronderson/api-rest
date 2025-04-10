@@ -1,8 +1,5 @@
 # API REST
 
-Nome: Ronderson de Almeida Florentino
-Cargo: Desenvolvedor PHP Sênior
-
 ## Como rodar o projeto
 
 Clone o projeto
