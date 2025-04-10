@@ -2,51 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UploadFotoPessoaRequest;
 use App\Models\FotoPessoa;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Models\Pessoa;
 use Illuminate\Support\Facades\Storage;
 
 class FotoPessoaController extends Controller
 {
 
-
-    public function upload(Request $request)
+    public function upload(UploadFotoPessoaRequest $request)
     {
-        try {
-            // Processando o upload do arquivo
-            if ($request->hasFile('foto')) {
+        $urls = [];
 
-                $file = $request->file('foto');
+        foreach ($request->file('fotos') as $foto) {
+            $hash = uniqid() . '.' . $foto->getClientOriginalExtension();
 
-                $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::disk('s3')->put($hash, file_get_contents($foto));
 
-                $path = Storage::disk('s3')->put("fotos/{$fileName}", file_get_contents($file), 'public');
+            FotoPessoa::create([
+                'pes_id' => $request->pes_id,
+                'fp_data' => now(),
+                'fp_bucket'  => env('AWS_BUCKET'),
+                'fp_hash' => $hash,
+            ]);
 
-                // // Se falhar no upload
-                // if (!$path) {
-                //     return response()->json(['message' => 'Falha ao enviar a foto.'], 500);
-                // }
+            $url = Storage::disk('s3')->temporaryUrl(
+                $hash,
+                now()->addMinutes(5)
+            );
 
-                $foto = FotoPessoa::create([
-                   // 'pes_id' => $request->pes_id,
-                    'pes_id' => 1,
-                    'fp_bucket' => env('AWS_BUCKET'),
-                    'fp_hash' => $fileName,
-                ]);
-
-                // Retorna a URL temporária da imagem
-                return response()->json([
-                    'message' => 'Foto enviada com sucesso!',
-                    'foto' => $foto,
-                    'url' => Storage::disk('s3')->url("fotos/{$fileName}")
-                ], 201);
-            }
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Erro ao processar a imagem.',
-                'error' => $e->getMessage(),
-            ], 500);
+            $urls[] = [
+                'fp_hash' => $hash,
+                'url_temporaria' => $url,
+            ];
         }
+
+        return response()->json(['fotos' => $urls], 201);
     }
 }

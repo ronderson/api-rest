@@ -31,25 +31,7 @@ class ServidorTemporarioRequest extends FormRequest
             'pes_pai' => 'nullable|string|max:200',
             // Servidor Temporario
             'st_data_admissao' => 'required|date_format:d/m/Y',
-            'st_data_demissao' => [
-                'required',
-                'date_format:d/m/Y',
-                function ($attribute, $value, $fail) {
-                    $admissao = $this->input('st_data_admissao');
-                    if (!$admissao) return;
-
-                    try {
-                        $dataAdmissao = Carbon::createFromFormat('d/m/Y', $admissao);
-                        $dataDemissao = Carbon::createFromFormat('d/m/Y', $value);
-
-                        if ($dataDemissao->lessThan($dataAdmissao)) {
-                            $fail('A data de demissão deve ser posterior à data de admissão.');
-                        }
-                    } catch (\Exception $e) {
-                        $fail('Erro ao validar as datas.');
-                    }
-                },
-            ],
+            'st_data_demissao' => 'required|date_format:d/m/Y|after_or_equal:st_data_admissao',
             // Endereço
             'end_tipo_logradouro' => 'required|string|max:50',
             'end_logradouro' => 'required|string|max:200',

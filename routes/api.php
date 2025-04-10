@@ -24,14 +24,23 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 
-
 Route::middleware(['auth:sanctum', 'token.expiration'])->group(function () {
+
+    Route::get('/unidades/{unid_id}/servidores-lotados', [ServidorEfetivoController::class, 'servidoresLotados']);
+    Route::get('/servidores/endereco-funcional', [ServidorEfetivoController::class, 'buscarEnderecoFuncional']);
+    Route::post('/fotos/upload', [FotoPessoaController::class, 'upload']);
+    
     // CRUD de Unidade
     Route::apiResource('/unidades', UnidadeController::class);
     // CRUD de Servidor Efetivo
-    Route::apiResource('/servidores-efetivos', ServidorEfetivoController::class)->parameters(['servidores-efetivos' => 'servidor']);
+    Route::apiResource('/servidores-efetivos', ServidorEfetivoController::class)
+        ->parameters(['servidores-efetivos' => 'servidor']);
     // CRUD de Servidor Temporário
-    Route::resource('/servidores-temporarios', ServidorTemporarioController::class)->parameters(['servidores-temporarios' => 'servidor']);
+    Route::apiResource('/servidores-temporarios', ServidorTemporarioController::class)
+        ->parameters(['servidores-temporarios' => 'servidor']);
+    // CRUD de Lotação
+    Route::apiResource('/lotacoes', LotacaoController::class)
+        ->parameters(['lotacoes' => 'lotacao']);
 
     Route::get('/pessoas/{id}/foto', [PessoaController::class, 'fotoTemporaria']);
 });

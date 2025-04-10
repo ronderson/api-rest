@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ServidorEfetivoRequest;
+use App\Http\Resources\EnderecoFuncionalResource;
 use App\Http\Resources\ServidorEfetivoResource;
+use App\Http\Resources\ServidorLotadoResource;
 use App\Models\Endereco;
+use App\Models\Lotacao;
 use App\Models\Pessoa;
 use App\Models\ServidorEfetivo;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -106,5 +110,33 @@ class ServidorEfetivoController extends Controller
     {
         $servidor->delete();
         return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function servidoresLotados($unid_id)
+    {
+        $lotacoes = Lotacao::with(['pessoa.servidorEfetivo', 'pessoa', 'unidade'])
+            ->where('unid_id', $unid_id)
+
+            ->paginate(env("PAGINATE"));
+
+        return ServidorLotadoResource::collection($lotacoes);
+    }
+
+    public function buscarEnderecoFuncional(Request $request)
+    {
+        $nome = $request->input('nome');
+
+        if (!$nome) {
+            return response()->json(['message' => 'Parâmetro nome é obrigatório'], 400);
+        }
+
+        $servidores = ServidorEfetivo::with(['pessoa', 'lotacoes.unidade.enderecos.cidade'])
+            ->whereHas('pessoa', function ($query) use ($nome) {
+                $query->where('pes_nome', 'ILIKE', "%{$nome}%");
+            })
+            ->paginate(env("PAGINATE"))
+            ->withQueryString();
+
+        return EnderecoFuncionalResource::collection($servidores);
     }
 }

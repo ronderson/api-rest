@@ -33,6 +33,11 @@ class ServidorEfetivo extends Model
         return $this->belongsTo(Pessoa::class, 'pes_id');
     }
 
+    public function lotacoes()
+    {
+        return $this->hasMany(Lotacao::class, 'pes_id', 'pes_id');
+    }
+
     public function scopeSearch($query, $request = null)
     {
         return $query->where(function ($queryFilter) use ($request) {

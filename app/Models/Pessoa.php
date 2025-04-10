@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class Pessoa extends Model
 {
@@ -43,5 +44,22 @@ class Pessoa extends Model
             'pes_id',
             'end_id'
         );
+    }
+
+    public function getFotoUrlAttribute()
+    {
+        if (!$this->foto || !$this->foto->fp_hash) {
+            return null;
+        }
+
+        return Storage::disk('s3')->temporaryUrl(
+            $this->foto->fp_hash,
+            now()->addMinutes(5)
+        );
+    }
+
+    public function fotos()
+    {
+        return $this->hasMany(FotoPessoa::class, 'pes_id', 'pes_id');
     }
 }
