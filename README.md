@@ -7,7 +7,7 @@ Cargo: Desenvolvedor PHP Sênior
 
 Clone o projeto
 ```
-git clone https://github.com/especializati/curso-de-laravel-10.git
+git clone https://github.com/ronderson/api-rest.git
 ```
 Duplicar o arquivo ".env.example" e renomear para ".env".
 
